@@ -29,8 +29,8 @@ class Startup {
         //we are done
         await helper.close();
 
-        //lets save it to disk
-        fs.writeFile("titles.json", JSON.stringify(results), function (err) {
+        //lets save it to disk, prettify
+        fs.writeFile("titles.json", JSON.stringify(results, null, '\t'), function (err) {
             if (err) throw err;
             console.log("Saved!");
         });

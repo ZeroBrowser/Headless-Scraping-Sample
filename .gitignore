@@ -7,6 +7,9 @@ lib-cov
 *.pid
 *.gz
 *.swp
+*.js
+*.png
+*.js.map
 
 pids
 logs
@@ -42,3 +45,4 @@ yarn.lock
 
 # no need
 package-lock.json
+
