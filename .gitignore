@@ -8,7 +8,8 @@ lib-cov
 *.gz
 *.swp
 *.png
-
+*.js
+*.js.map
 
 pids
 logs
