@@ -18,4 +18,4 @@ ADD /out /usr/src/app
 # Start
 CMD [ "npm", "start" ]
 
-#EXPOSE 7001
+EXPOSE 7001

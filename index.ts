@@ -3,20 +3,53 @@ import { Helper } from "./puppeteerHelper";
 import { CsvParser } from 'csv-parser';
 import cron = require('node-cron');
 import fs = require('fs');
+import { PathLike } from 'fs';
+import express = require('express');
 
 class Startup {
+
+    readonly fileName: PathLike;
+    readonly port: number;
+
+    constructor() {
+        this.fileName = "titles.json";
+        this.port = 7001;
+    }
+
     public async main() {
 
         //every 3 min
-        cron.schedule('*/3 * * * *', async () => {
+        cron.schedule('*/5 * * * *', async () => {
             let results = await this.start();
 
             //lets save it to disk, prettify
-            fs.writeFile("titles.json", JSON.stringify(results, null, '\t'), function (err) {
+            fs.writeFile(this.fileName, JSON.stringify(results, null, '\t'), function (err) {
                 if (err) throw err;
-                console.log("Saved!");
+                console.log(`${this.fileName} Saved!`);
             });
         });
+
+        //start a server
+        this.startServer();
+    }
+
+    startServer() {
+
+        const app: express.Application = express();
+
+        let fileName = this.fileName;
+        let port = this.port;
+
+        app.get('/', (req, res) => {
+            fs.readFile(fileName, 'utf8', function (err, data) {
+                if (err)
+                    throw err;
+
+                res.send(JSON.parse(data));
+            });
+        });
+
+        app.listen(port, function () { console.log(`App is listening on port ${port}!`); });
 
     }
 
