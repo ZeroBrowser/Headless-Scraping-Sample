@@ -14,7 +14,7 @@ export class Helper {
         console.log(puppeteer);
         this.browser = await puppeteer.connect({
             browserWSEndpoint:
-                'wss://proxy.0browser.com?token=5299f72f-f05b-4589-ad5d-1e9b3de55b9d&timeout=160000',
+                'wss://proxy.0browser.com?token={your-token}&timeout=160000',
         });
         console.info(`helper is initialized : ${this.browser.isConnected()}`);        
         return this.browser;

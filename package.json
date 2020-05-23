@@ -1,13 +1,13 @@
 {
-  "name": "week1",
+  "name": "toilet-paper-finder",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "scripts": {   
+    "tsc": "tsc -p tsconfig.json"
   },
   "keywords": [],
-  "author": "",
+  "author": "0Browser",
   "license": "ISC",
   "dependencies": {
     "csv-parser": "^2.3.2",
@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@types/puppeteer": "^2.1.0",
-    "@types/puppeteer-core": "^2.0.0"
+    "@types/puppeteer-core": "^2.0.0",
+    "typescript": "^3.9.3"
   }
 }
