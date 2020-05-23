@@ -15,3 +15,7 @@ RUN npm run tsc
 # Copy all other source code to work directory
 ADD /out /usr/src/app
 
+# Start
+CMD [ "npm", "start" ]
+
+#EXPOSE 7001

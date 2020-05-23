@@ -1,11 +1,26 @@
 import { Browser, Page } from "./node_modules/@types/puppeteer";
 import { Helper } from "./puppeteerHelper";
 import { CsvParser } from 'csv-parser';
+import cron = require('node-cron');
 import fs = require('fs');
 
 class Startup {
     public async main() {
 
+        //every 3 min
+        cron.schedule('*/3 * * * *', async () => {
+            let results = await this.start();
+
+            //lets save it to disk, prettify
+            fs.writeFile("titles.json", JSON.stringify(results, null, '\t'), function (err) {
+                if (err) throw err;
+                console.log("Saved!");
+            });
+        });
+
+    }
+
+    async start(): Promise<Array<any>> {
         let helper = new Helper();
         await helper.init();
         let page = await helper.goto('https://google.com');
@@ -29,11 +44,7 @@ class Startup {
         //we are done
         await helper.close();
 
-        //lets save it to disk, prettify
-        fs.writeFile("titles.json", JSON.stringify(results, null, '\t'), function (err) {
-            if (err) throw err;
-            console.log("Saved!");
-        });
+        return results;
     }
 
     async scrape(helper: Helper, page: Page, pageNumber: number): Promise<Array<any>> {

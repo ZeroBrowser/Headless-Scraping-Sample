@@ -2,3 +2,7 @@
 2. npm i puppeteer-core -save
 3. npm i csv-parser -save
 4. npm i @types/puppeteer --save-dev
+5. npm i @types/express --save-dev
+6. npm i express -save
+7. npm i node-cron -save
+8. npm i @types/node-cron -save-dev
