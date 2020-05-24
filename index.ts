@@ -112,16 +112,21 @@ class Startup {
 
         //this is what we were looking for
         //lets extract toilet paper info from this page
-        let titles = await page.evaluate(() => {
+        let results = await page.evaluate(() => {
 
             var elements = Array.from(document.querySelectorAll('div.sh-dlr__list-result'));
             var results = [];
             console.log(`length ${elements.length}`);
             for (let i = 0; i < elements.length; i++) {
                 const currentNode = elements[i];
+
                 var title = currentNode.querySelector('.mASaeb');
+                var image = currentNode.querySelector('.sh-dlr__thumbnail img');
+                var price = currentNode.querySelector('.ZGFjDb span[aria-hidden="true"]');
+                var sellerUrl = title.querySelector('a').getAttribute("href");
+
                 console.log(title.textContent);
-                results[i] = title.textContent;
+                results[i] = { 'title': title.textContent, 'imageData': image.getAttribute("src"), 'price': price.textContent, 'sellerUrl': `https://www.google.com${sellerUrl}` };
             }
             return results;
         });
@@ -136,9 +141,9 @@ class Startup {
         if (!this.isProd())
             await page.screenshot({ path: `capture${pageNumber}-after.png`, fullPage: true });
 
-        console.log(`a length: ${titles.length}`);
+        console.log(`a length: ${results.length}`);
 
-        return titles;
+        return results;
     }
 
     isProd(): boolean {
