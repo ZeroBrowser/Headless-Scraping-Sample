@@ -23,7 +23,7 @@ class Startup {
         let results = await this.start();
 
         //every 12 hours
-        cron.schedule('* */12 * * *', async () => {
+        cron.schedule('* * */12 * *', async () => {
             console.log(`Let's go!`);
             let results = await this.start();
         });
