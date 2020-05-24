@@ -1,6 +1,7 @@
 # 0browser-find-ToiletPaper
 
-Almost everybody is directly or indirectly affected by Corona-virus. We have had to change our habits in a lot of different ways.  
+Almost everybody is directly or indirectly affected by Corona-virus. 
+We have had to change our habits in a lot of different ways.  
 One of those, is the way we shop for toilet papers!   
 Anxiety of not finding the essentials we need is now part of our lives.  
 But do Not worry, headless browsers are here to rescue!  
