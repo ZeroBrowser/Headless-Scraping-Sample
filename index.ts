@@ -92,6 +92,7 @@ class Startup {
 
     async scrape(helper: Helper, page: Page, pageNumber: number): Promise<Array<any>> {
 
+        //only first time
         if (pageNumber == 2) {
             //select new items (from filters)
             await helper.clickAjax("#leftnavc > div > div > div:nth-child(7) > div.RhVG3d > div > div > div.EQ4p8c.CyAbL.HNgvTe");
@@ -146,4 +147,5 @@ class Startup {
 
 }
 
+//start the app
 new Startup().main();
