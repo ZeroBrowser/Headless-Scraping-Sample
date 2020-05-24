@@ -6,3 +6,4 @@
 6. npm i express -save
 7. npm i node-cron -save
 8. npm i @types/node-cron -save-dev
+9. npm i cors -save

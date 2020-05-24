@@ -5,6 +5,7 @@ import cron = require('node-cron');
 import fs = require('fs');
 import { PathLike } from 'fs';
 import express = require('express');
+import cors = require('cors')
 
 class Startup {
 
@@ -32,8 +33,16 @@ class Startup {
     }
 
     startServer() {
+        var corsOptions = {
+            origin: 'https://www.0browser.com',
+            optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+        }
 
         const app: express.Application = express();
+
+        //enable CORS for prod only
+        if (this.isProd())
+            app.use(cors(corsOptions));
 
         let fileName = this.fileName;
         let port = this.port;
@@ -43,7 +52,7 @@ class Startup {
                 if (err)
                     throw err;
 
-                res.send(JSON.parse(data));
+                res.json(JSON.parse(data));
             });
         });
 
