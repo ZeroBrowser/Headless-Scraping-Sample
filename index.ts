@@ -23,7 +23,7 @@ class Startup {
         let results = await this.start();
 
         //every 12 hours
-        cron.schedule('* * */12 * *', async () => {
+        cron.schedule('0 0 */12 * *', async () => {
             console.log(`Let's go!`);
             let results = await this.start();
         });
@@ -71,6 +71,9 @@ class Startup {
     }
 
     async start(): Promise<Array<any>> {
+
+        console.log(`UTC now: ${new Date().toUTCString()}`);        
+
         let helper = new Helper();
         await helper.init();
         let page = await helper.goto('https://google.com');
