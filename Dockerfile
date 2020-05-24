@@ -9,9 +9,11 @@ RUN npm run tsc
 FROM node:slim
 ENV NODE_ENV production
 EXPOSE 7001
+EXPOSE 443
+EXPOSE 80
 COPY --from=build /usr/src/app/out /usr/src/app
 COPY --from=build /usr/src/app/package.json /usr/src/app
 WORKDIR /usr/src/app
-RUN npm install
+RUN npm install --production
 # Start
 CMD [ "npm", "start" ]

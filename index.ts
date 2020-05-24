@@ -18,15 +18,13 @@ class Startup {
 
     public async main() {
 
+        //start once and then every 5 mins
+        let results = await this.start();
+
         //every 3 min
         cron.schedule('*/5 * * * *', async () => {
+            console.log(`Let's go!`);
             let results = await this.start();
-
-            //lets save it to disk, prettify
-            fs.writeFile(this.fileName, JSON.stringify(results, null, '\t'), function (err) {
-                if (err) throw err;
-                console.log(`${this.fileName} Saved!`);
-            });
         });
 
         //start a server
@@ -53,6 +51,16 @@ class Startup {
 
     }
 
+    async save(results: Array<any>, fileName: PathLike) {
+        //lets save it to disk, prettify
+        fs.writeFile(fileName, JSON.stringify(results, null, '\t'), function (err) {
+            if (err)
+                throw err;
+                
+            console.log(`${fileName} Saved!`);
+        });
+    }
+
     async start(): Promise<Array<any>> {
         let helper = new Helper();
         await helper.init();
@@ -77,6 +85,8 @@ class Startup {
         //we are done
         await helper.close();
 
+        this.save(results, this.fileName);
+
         return results;
     }
 
@@ -96,7 +106,8 @@ class Startup {
             await helper.clickAjax("#lb > div > g-menu > g-menu-item:nth-child(2)");
         }
 
-        await page.screenshot({ path: `capture${pageNumber}.png`, fullPage: true });
+        if (!this.isProd())
+            await page.screenshot({ path: `capture${pageNumber}.png`, fullPage: true });
 
         //this is what we were looking for
         //lets extract toilet paper info from this page
@@ -121,13 +132,17 @@ class Startup {
         console.log("selector: " + selector);
         await helper.clickAjax(selector);
 
-        await page.screenshot({ path: `capture${pageNumber}-after.png`, fullPage: true });
+        if (!this.isProd())
+            await page.screenshot({ path: `capture${pageNumber}-after.png`, fullPage: true });
 
         console.log(`a length: ${titles.length}`);
 
         return titles;
     }
 
+    isProd(): boolean {
+        return process.env.NODE_ENV === "production";
+    }
 
 }
 
