@@ -18,11 +18,11 @@ class Startup {
 
     public async main() {
 
-        //start once and then every 5 mins
+        //start once and then every 12 hours
         let results = await this.start();
 
-        //every 3 min
-        cron.schedule('*/5 * * * *', async () => {
+        //every 12 hours
+        cron.schedule('* */12 * * *', async () => {
             console.log(`Let's go!`);
             let results = await this.start();
         });
@@ -56,7 +56,7 @@ class Startup {
         fs.writeFile(fileName, JSON.stringify(results, null, '\t'), function (err) {
             if (err)
                 throw err;
-                
+
             console.log(`${fileName} Saved!`);
         });
     }
