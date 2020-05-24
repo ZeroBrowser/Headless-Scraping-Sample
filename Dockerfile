@@ -1,21 +1,17 @@
-FROM node:12.9.1-alpine
-
-# Env
+FROM node:12.9.1-alpine AS build
 ENV NODE_ENV dev
-
-# Create Directory for the Container
+COPY . ./usr/src/app
 WORKDIR /usr/src/app
-
-# Install all Packages
 RUN npm install
+#compile
+RUN npm run tsc 
 
-# TypeScript
-RUN npm run tsc
-
-# Copy all other source code to work directory
-ADD /out /usr/src/app
-
+FROM node:slim
+ENV NODE_ENV production
+EXPOSE 7001
+COPY --from=build /usr/src/app/out /usr/src/app
+COPY --from=build /usr/src/app/package.json /usr/src/app
+WORKDIR /usr/src/app
+RUN npm install
 # Start
 CMD [ "npm", "start" ]
-
-EXPOSE 7001
