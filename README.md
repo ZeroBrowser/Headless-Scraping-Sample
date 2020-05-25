@@ -9,7 +9,7 @@ In this project we are showing how we can utilize 0Browser, a headless browser a
 
 ## ⛏ Build
 
-Before you start make sure you have a browserWSEndpoint. You can either go to 0Browser and get one for free or you can always use Puppeteer or other methods to spin-up one yourself. 
+Before you start make sure you have a browserWSEndpoint. You can either go to 0Browser and get one for free or create your own  using Puppeteer (others). For more information head out to "Get Started " page here : https://www.0browser.com/docs/index.html
 
 Update browserWSEndpoint in puppeteerHelper.ts to your new websocket url.
 
