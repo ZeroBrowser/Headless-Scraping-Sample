@@ -132,10 +132,10 @@ class Startup {
             for (let i = 0; i < elements.length; i++) {
                 const currentNode = elements[i];
 
-                var title = currentNode.querySelector('.mASaeb');
+                var title = currentNode.querySelector('.translate-content');
                 var image = currentNode.querySelector('.sh-dlr__thumbnail img');
                 var price = currentNode.querySelector('.ZGFjDb span[aria-hidden="true"]');
-                var sellerUrl = title.querySelector('a').getAttribute("href");
+                var sellerUrl = title.getAttribute("href");
 
                 console.log(title.textContent);
                 results[i] = { 'title': title.textContent, 'imageData': image.getAttribute("src"), 'price': price.textContent, 'sellerUrl': `https://www.google.com${sellerUrl}` };
