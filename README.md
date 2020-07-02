@@ -24,6 +24,7 @@ Build the Typescript application using this command:
 npm run tsc
 ```
 
+## 🏃 Run
 Then, you can run the application using 
 
 ```
